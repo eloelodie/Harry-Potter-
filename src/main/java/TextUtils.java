@@ -20,7 +20,7 @@ public class TextUtils {
                 input = Integer.parseInt(sc.next());
             } catch (Exception e) {
                 input = -1;
-                System.out.println("Choix inconnu, merci d'entrer l'une des propositions");
+                System.out.println("Unknown choice, please enter one of the proposals");
             }
 
         } while(input < 1 || input > Choices);
@@ -36,7 +36,7 @@ public class TextUtils {
             System.out.print(prompt);
             input = sc.next();
 
-        } while (!askYesNo("Êtes-vous sûr de votre choix ? (y ou n)\n--> ") || !askForConfirmation);
+        } while (!askYesNo("Are you sure of your choice ? (y or n)\n--> ") || !askForConfirmation);
 
         return input;
     }
@@ -62,7 +62,7 @@ public class TextUtils {
                     throw new Exception("");
                 }
             } catch (Exception e) {
-                System.out.println("Réponse inconnue");
+                System.out.println("Unknown answer");
             }
 
         } while(true);
@@ -94,7 +94,7 @@ public class TextUtils {
 
     // give time to user to read or anything before continue
     public void anythingToContinue() {
-        System.out.println("\nEntrer n'importe quoi pour continuer...");
+        System.out.println("\nEnter anything to continue...");
         sc.next();
     }
 }
