@@ -11,7 +11,7 @@ public class ForbiddenSpell extends AbstractSpell {
 
     public void castSpell(Character caster, Character target) {
         if (this.manaCost > caster.getMana()) {
-            System.out.println("Pas assez de mana !");
+            System.out.println("Not enough mana !");
             return;
         }
         caster.setHp(caster.getHp() - this.sacrifiedHp);
