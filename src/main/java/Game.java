@@ -29,14 +29,14 @@ public class Game {
     Boss BellatrixLestrange = new Boss("Bellatrix Lestrange", 60, 25, new ArrayList<>(Arrays.asList(avadaKedavra, imperio)), 30);
 
     Level[] levels = new Level[]{
-            new Level(new Library(),"Bibliothèque", null, null),
-            new Level(new DungeonsToilets(),"Toilettes du donjon", null, new ArrayList<>(Collections.singletonList(Troll))),
-            new Level(new SecretChamber(),"Chambre des secrets", new ArrayList<>(Collections.singletonList(Basilisk)), null),
-            new Level(new ForbiddenForestLake(),"Lac dans la Forêt Interdite", new ArrayList<>(Arrays.asList(Dementor, Dementor, Dementor)), null),
-            new Level(new LittleHangletonCemetery(), "Cimetière de Little Hangleton", null, new ArrayList<>(Arrays.asList(Voldemort, PeterPettigrew))),
-            new Level(new PoudlardExamRoom(), "Salle d’examen de Poudlard", null, new ArrayList<>(Arrays.asList(DoloresUmbridge))),
-            new Level(new AstronomyTower(), "Tour d’astronomie", new ArrayList<>(Arrays.asList(DeathEater, DeathEater, DeathEater)), null),
-            new Level(new Hogwarts(), "Poudlard", null, new ArrayList<>(Arrays.asList(Voldemort, BellatrixLestrange)))
+            new Level(new Library(),"Library", null, null),
+            new Level(new DungeonsToilets(),"Dungeon toilets", null, new ArrayList<>(Collections.singletonList(Troll))),
+            new Level(new SecretChamber(),"Secrets room", new ArrayList<>(Collections.singletonList(Basilisk)), null),
+            new Level(new ForbiddenForestLake(),"Lake in the Forbidden Forest", new ArrayList<>(Arrays.asList(Dementor, Dementor, Dementor)), null),
+            new Level(new LittleHangletonCemetery(), "Little Hangleton Cemetery", null, new ArrayList<>(Arrays.asList(Voldemort, PeterPettigrew))),
+            new Level(new PoudlardExamRoom(), "Hogwarts examination room", null, new ArrayList<>(Arrays.asList(DoloresUmbridge))),
+            new Level(new AstronomyTower(), "Astronomy tower", new ArrayList<>(Arrays.asList(DeathEater, DeathEater, DeathEater)), null),
+            new Level(new Hogwarts(), "Hogwartsd", null, new ArrayList<>(Arrays.asList(Voldemort, BellatrixLestrange)))
     };
 
     int lastLevel = 0;
@@ -50,8 +50,8 @@ public class Game {
     }
 
     public void initialisation() {
-        String name = TU.askStr("Quel est votre nom ?\n--> ", true);
-        int wandSize = switch (TU.askInt("Quelle taille de baguette voulez-vous ? \n(1) 9cm \n(2) 11cm \n(3) 13cm\n--> ", 3)) {
+        String name = TU.askStr("What's your name ?\n--> ", true);
+        int wandSize = switch (TU.askInt("What size wand do you want ? \n(1) 9cm \n(2) 11cm \n(3) 13cm\n--> ", 3)) {
             case 1 -> 9;
             case 2 -> 11;
             case 3 -> 13;
@@ -69,14 +69,14 @@ public class Game {
     }
 
     public void wizardInfo() {
-        TU.printHeading("Informations du sorcier");
-        TU.printConsole("Nom : " + wizard.getName());
-        TU.printConsole("Baguette : " + wizard.getWand().getSize() + "cm de longueur et de " + wizard.getWand().getCore().getName() + " comme noyau.");
-        TU.printConsole("Maison : " + wizard.getHouse().getName());
-        TU.printConsole("Points de vie : " + wizard.getHp());
-        TU.printConsole("Niveau : " + wizard.getCurrentLevel());
-        TU.printConsole("Dernier niveau atteint : " + lastLevel);
-        TU.printConsole("Sorts : " + showKnownSpells());
+        TU.printHeading("Wizard information");
+        TU.printConsole("Name : " + wizard.getName());
+        TU.printConsole("Wand : " + wizard.getWand().getSize() + "cm de longueur et de " + wizard.getWand().getCore().getName() + " comme noyau.");
+        TU.printConsole("House : " + wizard.getHouse().getName());
+        TU.printConsole("Life points : " + wizard.getHp());
+        TU.printConsole("Level : " + wizard.getCurrentLevel());
+        TU.printConsole("Last level reached : " + lastLevel);
+        TU.printConsole("Spells : " + showKnownSpells());
     }
 
     public String showKnownSpells() {
@@ -89,9 +89,9 @@ public class Game {
 
     public void loopMenu(){
         while (running) {
-            TU.printHeading("Vous êtes au niveau " + wizard.getCurrentLevel() + " : " + levels[wizard.getCurrentLevel()].getName());
-            TU.printConsole("Le dernier niveau que vous avez atteint est le niveau " + lastLevel + " : " + levels[lastLevel].getName());
-            switch (TU.askInt("Que voulez-vous faire ? \n(1) Aller au niveau suivant \n(2) Aller à la bibliothèque \n(3) Info de votre sorcier \n(4) Quitter le jeu \n--> ", 3)) {
+            TU.printHeading("You are on the level " + wizard.getCurrentLevel() + " : " + levels[wizard.getCurrentLevel()].getName());
+            TU.printConsole("The last level you reached is the level " + lastLevel + " : " + levels[lastLevel].getName());
+            switch (TU.askInt("What do you want to do ? \n(1) Go to the next level \n(2) Go to the library \n(3) Info from your wizard \n(4) Leave the game \n--> ", 3)) {
                 case 1 -> nextLevel();
                 case 2 -> goToLibrary();
                 case 3 -> wizardInfo();
@@ -105,7 +105,7 @@ public class Game {
         alreadyWentLibrary = false;
         lastLevel++;
         if (lastLevel > 7) {
-            TU.printConsole("Vous avez gagné !");
+            TU.printConsole("You win !");
             lastLevel = 7;
             return;
         }
@@ -115,7 +115,7 @@ public class Game {
 
     public void goToLibrary() {
         if (alreadyWentLibrary) {
-            TU.printConsole("Vous avez déjà été dans la bibliothèque.");
+            TU.printConsole("You have already been in the library.");
             return;
         }
         wizard.setCurrentLevel(0);
@@ -123,7 +123,7 @@ public class Game {
     }
 
     public void exploreLevel(Level level) {
-        TU.printHeading("Vous êtes au niveau " + wizard.getCurrentLevel() + " : " + level.getName());
+        TU.printHeading("You are on the level " + wizard.getCurrentLevel() + " : " + level.getName());
         LevelAction action = level.getLevelAction();
         if (action != null) {
             action.performAction(wizard, (ArrayList<Enemy>) level.getEnemies(), (ArrayList<Boss>) level.getBosses());
@@ -132,3 +132,4 @@ public class Game {
     }
 
 }
+
