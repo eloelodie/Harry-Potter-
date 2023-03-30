@@ -15,21 +15,21 @@ public class Skirmishes {
     }
 
     public void rest(Wizard wizard) {
-        TU.printConsole("Vous vous reposez...");
+        TU.printConsole("You rest...");
         wizard.setHp(wizard.getMaxHp());
         wizard.setMana(wizard.getMaxMana());
-        TU.printConsole("Vous avez récupéré tous vos points de vie.");
+        TU.printConsole("You have recovered all your life points.");
     }
 
     public void specialDeath(String name, AbstractEnemy enemy) {
-        TU.printConsole("Le " + name + " est mort !");
+        TU.printConsole("The " + name + " is dead !");
         enemy.setHp(0);
-        TU.printConsole("Vous passez au niveau suivant !");
-        TU.printConsole("Vous avez gagné !");
+        TU.printConsole("You go to the next level !");
+        TU.printConsole("You win !");
     }
 
     public void learningSpell(Wizard wizard, Spell spell) {
-        TU.printConsole("Vous avez appris le sort " + spell.getName() + " !");
+        TU.printConsole("You learned the spell " + spell.getName() + " !");
         wizard.addSpell(spell);
     }
 
