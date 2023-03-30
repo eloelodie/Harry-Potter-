@@ -5,8 +5,8 @@ public class Wizard extends Character {
     private Pet pet;
     private final Wand wand;
     private House house;
-    private ArrayList<Spell> knownSpells;
-    private ArrayList<Potion> potions;
+    private ArrayList<Spell> knownSpells = new ArrayList<>();
+    private ArrayList<Potion> potions = new ArrayList<>();
     private int currentLevel = 0;
 
     public Wizard(String name, Wand wand, int maxHp, int maxMana) {

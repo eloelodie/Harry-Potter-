@@ -6,6 +6,7 @@ public class Game {
 
     TextUtils TU = new TextUtils();
     InitWizard IWiz = new InitWizard();
+    Skirmishes sk = new Skirmishes();
 
     // Wizard
     Wizard wizard;
@@ -27,7 +28,7 @@ public class Game {
     Boss DoloresUmbridge = new Boss("Dolores Umbridge", 60, 25, new ArrayList<>(Arrays.asList(imperio, crucio)), 30);
     Boss BellatrixLestrange = new Boss("Bellatrix Lestrange", 60, 25, new ArrayList<>(Arrays.asList(avadaKedavra, imperio)), 30);
 
-    Level[] Levels = new Level[]{
+    Level[] levels = new Level[]{
             new Level(new Library(),"Bibliothèque", null, null),
             new Level(new DungeonsToilets(),"Toilettes du donjon", null, new ArrayList<>(Collections.singletonList(Troll))),
             new Level(new SecretRoom(),"Chambre des secrets", new ArrayList<>(Collections.singletonList(Basilisk)), null),
@@ -60,8 +61,8 @@ public class Game {
         wizard = new Wizard(name, wand, 100, 30);
         House house = IWiz.HouseSetter();
         wizard.setHouse(house);
+        wizard.addSpell(sk.wingardiumLeviosa);
         wizardInfo();
-        TU.printSeparator(20);
 
         running = true;
         loopMenu();
@@ -75,18 +76,26 @@ public class Game {
         TU.printConsole("Points de vie : " + wizard.getHp());
         TU.printConsole("Niveau : " + wizard.getCurrentLevel());
         TU.printConsole("Dernier niveau atteint : " + lastLevel);
-        TU.printConsole("Sorts : " + wizard.getKnownSpells());
-        TU.printSeparator(20);
+        TU.printConsole("Sorts : " + showKnownSpells());
+    }
+
+    public String showKnownSpells() {
+        StringBuilder spellsKnown = new StringBuilder();
+        for (Spell spell : wizard.getKnownSpells()) {
+            spellsKnown.append(spell.getName()).append(", ");
+        }
+        return spellsKnown.toString();
     }
 
     public void loopMenu(){
         while (running) {
-            TU.printHeading("Vous êtes au niveau " + wizard.getCurrentLevel() + " : " + Levels[wizard.getCurrentLevel()]);
-            TU.printConsole("Le dernier niveau que vous avez atteint est le niveau " + lastLevel + " : " + Levels[lastLevel]);
-            switch (TU.askInt("Que voulez-vous faire ? \n(1) Aller au niveau suivant \n(2) Aller à la bibliothèque \n(3) Quitter le jeu \n--> ", 3)) {
+            TU.printHeading("Vous êtes au niveau " + wizard.getCurrentLevel() + " : " + levels[wizard.getCurrentLevel()].getName());
+            TU.printConsole("Le dernier niveau que vous avez atteint est le niveau " + lastLevel + " : " + levels[lastLevel].getName());
+            switch (TU.askInt("Que voulez-vous faire ? \n(1) Aller au niveau suivant \n(2) Aller à la bibliothèque \n(3) Info de votre sorcier \n(4) Quitter le jeu \n--> ", 3)) {
                 case 1 -> nextLevel();
                 case 2 -> goToLibrary();
-                case 3 -> running = false;
+                case 3 -> wizardInfo();
+                case 4 -> running = false;
             }
             TU.printSeparator(20);
         }
@@ -95,8 +104,13 @@ public class Game {
     public void nextLevel() {
         alreadyWentLibrary = false;
         lastLevel++;
+        if (lastLevel > 7) {
+            TU.printConsole("Vous avez gagné !");
+            lastLevel = 7;
+            return;
+        }
         wizard.setCurrentLevel(lastLevel);
-        exploreLevel(Levels[wizard.getCurrentLevel()]);
+        exploreLevel(levels[wizard.getCurrentLevel()]);
     }
 
     public void goToLibrary() {
@@ -105,7 +119,7 @@ public class Game {
             return;
         }
         wizard.setCurrentLevel(0);
-        exploreLevel(Levels[wizard.getCurrentLevel()]);
+        exploreLevel(levels[wizard.getCurrentLevel()]);
     }
 
     public void exploreLevel(Level level) {
@@ -113,7 +127,7 @@ public class Game {
         // Exécuter l'action spécifique du niveau
         LevelAction action = level.getLevelAction();
         if (action != null) {
-            action.performAction(wizard);
+            action.performAction(wizard, (ArrayList<Enemy>) level.getEnemies(), (ArrayList<Boss>) level.getBosses());
             loopMenu();
         }
     }

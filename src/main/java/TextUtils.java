@@ -36,7 +36,7 @@ public class TextUtils {
             System.out.print(prompt);
             input = sc.next();
 
-        } while (!askYesNo("Êtes-vous sûr de votre choix ? (y ou n)\n-->") || !askForConfirmation);
+        } while (!askYesNo("Êtes-vous sûr de votre choix ? (y ou n)\n--> ") || !askForConfirmation);
 
         return input;
     }
@@ -52,10 +52,10 @@ public class TextUtils {
             input = sc.next();
 
             try {
-                if (input.toLowerCase().equals("y") || input.toLowerCase().equals("o")) {
+                if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("o")) {
                     yn = true;
                     break;
-                } else if (input.toLowerCase().equals("n")) {
+                } else if (input.equalsIgnoreCase("n")) {
                     yn = false;
                     break;
                 } else {
