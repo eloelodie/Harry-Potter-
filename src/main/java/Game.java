@@ -27,6 +27,17 @@ public class Game {
     Boss DoloresUmbridge = new Boss("Dolores Umbridge", 60, 25, new ArrayList<>(Arrays.asList(imperio, crucio)), 30);
     Boss BellatrixLestrange = new Boss("Bellatrix Lestrange", 60, 25, new ArrayList<>(Arrays.asList(avadaKedavra, imperio)), 30);
 
+    Level[] Levels = new Level[]{
+            new Level(new Library(),"Bibliothèque", null, null),
+            new Level(new DungeonsToilets(),"Toilettes du donjon", null, new ArrayList<>(Collections.singletonList(Troll))),
+            new Level(new SecretRoom(),"Chambre des secrets", new ArrayList<>(Collections.singletonList(Basilisk)), null),
+            new Level(new ForbiddenForestLake(),"Lac dans la Forêt Interdite", new ArrayList<>(Arrays.asList(Dementor, Dementor, Dementor)), null),
+            new Level(new LittleHangletonCemetery(), "Cimetière de Little Hangleton", null, new ArrayList<>(Arrays.asList(Voldemort, PeterPettigrew))),
+            new Level(new PoudlardExamRoom(), "Salle d’examen de Poudlard", null, new ArrayList<>(Arrays.asList(DoloresUmbridge))),
+            new Level(new AstronomyTower(), "Tour d’astronomie", new ArrayList<>(Arrays.asList(DeathEater, DeathEater, DeathEater)), null),
+            new Level(new Hogwarts(), "Poudlard", null, new ArrayList<>(Arrays.asList(Voldemort, BellatrixLestrange)))
+    };
+
     int lastLevel = 0;
     boolean alreadyWentLibrary = false;
     boolean running = false;
@@ -95,6 +106,16 @@ public class Game {
         }
         wizard.setCurrentLevel(0);
         exploreLevel(Levels[wizard.getCurrentLevel()]);
+    }
+
+    public void exploreLevel(Level level) {
+        TU.printHeading("Vous êtes au niveau " + wizard.getCurrentLevel() + " : " + level.getName());
+        // Exécuter l'action spécifique du niveau
+        LevelAction action = level.getLevelAction();
+        if (action != null) {
+            action.performAction(wizard);
+            loopMenu();
+        }
     }
 
 }
