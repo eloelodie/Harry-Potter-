@@ -9,7 +9,7 @@ public class Library implements LevelAction {
 
     @Override
     public void performAction(Wizard wizard, ArrayList<Enemy> enemies, ArrayList<Boss> bosses) {
-        TU.printHeading("Vous entrez dans la bibliothèque.");
+        TU.printHeading("You enter the library.");
         sk.rest(wizard);
 
         libraryAction(wizard);
@@ -18,23 +18,24 @@ public class Library implements LevelAction {
     public void libraryAction(Wizard wizard) {
         boolean stayInLibrary = true;
         while (stayInLibrary) {
-            switch (TU.askInt("Que voulez-vous faire ?\n(1) Prendre une potion\n(2) Sortir\n--> ", 2)) {
+            switch (TU.askInt("What do you want to do ?\n(1) Take a potion\n(2) Leave\n--> ", 2)) {
                 case 1 -> {
                     if (hasTakenPotion) {
-                        TU.printConsole("Vous avez déjà pris une potion.");
+                        TU.printConsole("You have already taken a potion.");
                     } else {
                         Potion randomPotion = Potion.values()[(int) (Math.random() * Potion.values().length)];
-                        TU.printConsole("Vous prenez la potion " + randomPotion.getName());
+                        TU.printConsole("" +
+                                "You take the potion " + randomPotion.getName());
                         wizard.addPotion(randomPotion);
                         hasTakenPotion = true;
                     }
                 }
                 case 2 -> {
-                    TU.printConsole("Vous sortez de la bibliothèque.");
+                    TU.printConsole("You leave the library.");
                     hasTakenPotion = false;
                     stayInLibrary = false;
                 }
-                default -> System.out.println("Choix invalide.");
+                default -> System.out.println("Invalid choice.");
             }
         }
 
