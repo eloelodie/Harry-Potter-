@@ -7,7 +7,7 @@ public class Level {
     List<Boss> bosses;
     LevelAction levelAction;
 
-    public Level(LevelAction levelAction,String name, List<Enemy> enemies, List<Boss> bosses) {
+    public Level(LevelAction levelAction, String name, List<Enemy> enemies, List<Boss> bosses) {
         this.levelAction = levelAction;
         this.name = name;
         this.enemies = enemies;
