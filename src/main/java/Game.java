@@ -32,7 +32,7 @@ public class Game {
             new Level(new Library(),"Library", null, null),
             new Level(new DungeonsToilets(),"Dungeon toilets", null, new ArrayList<>(Collections.singletonList(Troll))),
             new Level(new SecretChamber(),"Secrets room", new ArrayList<>(Collections.singletonList(Basilisk)), null),
-            new Level(new ForbiddenForestLake(),"Lake in the Forbidden Forest", new ArrayList<>(Arrays.asList(Dementor, Dementor, Dementor)), null),
+            new Level(new ForbiddenForestLake(),"Forbidden Forest Lake", new ArrayList<>(Arrays.asList(Dementor, Dementor, Dementor)), null),
             new Level(new LittleHangletonCemetery(), "Little Hangleton Cemetery", null, new ArrayList<>(Arrays.asList(Voldemort, PeterPettigrew))),
             new Level(new PoudlardExamRoom(), "Hogwarts examination room", null, new ArrayList<>(Arrays.asList(DoloresUmbridge))),
             new Level(new AstronomyTower(), "Astronomy tower", new ArrayList<>(Arrays.asList(DeathEater, DeathEater, DeathEater)), null),
