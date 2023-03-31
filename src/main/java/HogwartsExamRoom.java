@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class PoudlardExamRoom implements LevelAction {
+public class HogwartsExamRoom implements LevelAction {
 
     @Override
     public void performAction(Wizard wizard, ArrayList<Enemy> enemies, ArrayList<Boss> bosses) {
