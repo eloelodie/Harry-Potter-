@@ -6,29 +6,29 @@ public class ForbiddenForestLake implements LevelAction {
 
     @Override
     public void performAction(Wizard wizard, ArrayList<Enemy> enemies, ArrayList<Boss> bosses) {
-        String enemyName = enemies.get(0).getName();
+        String enemyName = enemies.get(1).getName();
         TU.printHeading("You enter the Forbidden Forest Lake.");
         TU.printConsole("A " + enemyName + " appears !");
-        while (wizard.getHp() > 0 && enemies.get(0).getHp() > 0) {
+        while (wizard.getHp() > 0 && enemies.get(1).getHp() > 0) {
             TU.printConsole("Dementor is comin");
             switch (TU.askInt("What do you want to do ? \n(1) Attack \n(2) Use Expecto Patronum\n--> ", 2)) {
                 case 1 -> {
-                    wizard.attack(bosses.get(0), wizard.getDamage());
-                    dementorAttack(wizard, enemies.get(0));
+                    wizard.attack(enemies.get(1), wizard.getDamage());
+                    dementorAttack(wizard, enemies.get(1));
                 }
                 case 2 -> {
                     if (Math.random() * 100 <= 60 && wizard.getKnownSpells().contains(sk.getSpells()[2])) {
                         TU.printConsole("You managed to pull a fang out of him !");
                     } else {
                         TU.printConsole("You missed your spell !");
-                        wizard.getKnownSpells().get(2).castSpell(wizard, enemies.get(0));
-                        dementorAttack(wizard, enemies.get(0));
+                        wizard.getKnownSpells().get(2).castSpell(wizard, enemies.get(1));
+                        dementorAttack(wizard, enemies.get(1));
                     }
                 }
             }
         }
-        if (enemies.get(0).getHp() <= 0) {
-            sk.specialDeath(enemyName, enemies.get(0));
+        if (enemies.get(1).getHp() <= 0) {
+            sk.specialDeath(enemyName, enemies.get(1));
             sk.learningSpell(wizard, sk.getSpells()[2]);
             TU.printConsole("You use your patronum to flee Dementors !");
         }
