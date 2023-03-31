@@ -51,7 +51,7 @@ public class Game {
 
     public void initialisation() {
         String name = TU.askStr("What's your name ?\n--> ", true);
-        int wandSize = switch (TU.askInt("What size wand do you want ? \n(1) 9cm \n(2) 11cm \n(3) 13cm\n--> ", 3)) {
+        int wandSize = switch (TU.askInt("What size wand do you want ? \n(1) 9 inch \n(2) 11 inch \n(3) 13 inch\n--> ", 3)) {
             case 1 -> 9;
             case 2 -> 11;
             case 3 -> 13;
@@ -71,7 +71,7 @@ public class Game {
     public void wizardInfo() {
         TU.printHeading("Wizard information");
         TU.printConsole("Name : " + wizard.getName());
-        TU.printConsole("Wand : " + wizard.getWand().getSize() + "cm de longueur et de " + wizard.getWand().getCore().getName() + " comme noyau.");
+        TU.printConsole("Wand : " + wizard.getWand().getSize() + "inch in length and " + wizard.getWand().getCore().getName() + " as the core.");
         TU.printConsole("House : " + wizard.getHouse().getName());
         TU.printConsole("Life points : " + wizard.getHp());
         TU.printConsole("Level : " + wizard.getCurrentLevel());
